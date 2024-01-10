@@ -124,4 +124,4 @@ __[진행과정]__
 - 관리자 계정 등록 기능 및 사용자 화면 구성하여 연결
 <br/>
 
-[프레젠테이션 자료 및 시연영상](http://zeldahagoshipda.com](https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing)https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing)
+[프레젠테이션 자료 및 시연영상]([http://zeldahagoshipda.com](https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing)https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing](https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing)https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing)
