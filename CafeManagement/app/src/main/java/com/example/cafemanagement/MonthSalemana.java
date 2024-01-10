@@ -38,7 +38,8 @@ public class MonthSalemana extends AppCompatActivity {
     TextView txtSale;
     RecyclerView rv1;
     RecyclerView.Adapter MonAdapter;
-    static List<SaleDTO> items6;
+//   @ static List<SaleDTO> items6;
+    static List<OrdersDTO> items6;
     OrdersDAO dao;
     int monresult;
 
@@ -59,6 +60,7 @@ public class MonthSalemana extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rv1.getContext(), new LinearLayoutManager(this).getOrientation());
         rv1.addItemDecoration(dividerItemDecoration);
 
+        //엑셀아이콘버튼
         btnExcel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +98,7 @@ public class MonthSalemana extends AppCompatActivity {
             }
         });
     }
+    // 월별 날짜검색 어댑터
 
     class MonAdapter extends RecyclerView.Adapter<MonthSalemana.MonAdapter.MonViewHolder> {
 
@@ -108,7 +111,9 @@ public class MonthSalemana extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MonViewHolder holder, int position) {
-            SaleDTO items = items6.get(position);
+//           @ SaleDTO items = items6.get(position);
+            OrdersDTO items = items6.get(position);
+
             holder.txtViewDatem.setText(items.getOrder_date());
             holder.txtViewMenum.setText(items.getMenu_name());
             holder.txtViewAmountm.setText(String.valueOf(items.getMonth_amount()));
@@ -132,12 +137,11 @@ public class MonthSalemana extends AppCompatActivity {
             }
         }
     }
-
-    void hidekeyboard() { // 검색후 키보드 자동닫기
+    // 키보드 자동내리기
+    void hidekeyboard() {
         InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(rv1.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
     public String numberFormat(String str) { //금액단위 콤마설정
         if (str.length() == 0) {
             return "";

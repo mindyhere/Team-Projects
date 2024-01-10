@@ -107,7 +107,8 @@ public class MenuAddActivity extends AppCompatActivity {
         items = new ArrayList<>();  //리사이클러뷰에서 보이는 임시저장 목록
 
         switchRun.setChecked(true);
-        //기본값으로 "판매중" 상태 설정
+        switchRun.setText("판매중");
+        //초기설정 : "판매중" 상태 & 체크표시 true
         switchRun.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -122,7 +123,7 @@ public class MenuAddActivity extends AppCompatActivity {
         switchRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(addMenuName.getText()) || !TextUtils.isEmpty(addPrice.getText())){
+                if (!TextUtils.isEmpty(addMenuName.getText()) || !TextUtils.isEmpty(addPrice.getText())) {
                     hidekeyboard();
                 }
             }
@@ -162,10 +163,16 @@ public class MenuAddActivity extends AppCompatActivity {
                         return;
                     }
 
-                    adapterR.items.add(new MenuDTO(category, menuName, price, run));
-                    //목록(items)에 신규 데이터셋 추가
-                    adapterR.notifyDataSetChanged();
-                    Toast.makeText(MenuAddActivity.this, "임시저장 되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (menuDao.checkName(menuName).equals("isUsed")) {
+                        Toast.makeText(MenuAddActivity.this, "이미 사용 중인 상품명이 있습니다.", Toast.LENGTH_SHORT).show();
+                        addMenuName.requestFocus();
+                        return;
+                    } else {
+                        adapterR.items.add(new MenuDTO(category, menuName, price, run));
+                        //목록(items)에 신규 데이터셋 추가
+                        adapterR.notifyDataSetChanged();
+                        Toast.makeText(MenuAddActivity.this, "임시저장 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
 
                     //각 항목 초기화
                     spinner.setSelection(group.size() - 1);

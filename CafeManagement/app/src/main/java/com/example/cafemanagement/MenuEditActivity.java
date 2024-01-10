@@ -129,10 +129,17 @@ public class MenuEditActivity extends AppCompatActivity implements View.OnClickL
                 menuDto.setMenuName(menuName);
                 menuDto.setPrice(price);
                 menuDto.setRun(run);
-                menuDao.update(menuDto);
+
                 //dto에 담아 쿼리(메소드) 실행 → DB반영
-                Toast.makeText(MenuEditActivity.this, "상품정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
-                finish(); //액티비티 종료
+                if (menuDao.update(menuDto).equals("succeed")) {
+                    //DB에 정상적으로 업데이트 실행 완료 된 경우
+                    Toast.makeText(MenuEditActivity.this, "상품정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish(); //액티비티 종료
+                } else {
+                    //예외 발생 시 사용자에게 알림
+                    Toast.makeText(MenuEditActivity.this, "상품정보를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    editMenuName.requestFocus();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(MenuEditActivity.this, "상품정보를 확인해주세요.", Toast.LENGTH_SHORT).show();

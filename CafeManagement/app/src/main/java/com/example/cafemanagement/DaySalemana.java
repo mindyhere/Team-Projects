@@ -34,7 +34,8 @@ public class DaySalemana extends AppCompatActivity {
     TextView txtSale;
     RecyclerView rv1;
     RecyclerView.Adapter DayAdapter;
-    List<SaleDTO> items4;
+//    @List<SaleDTO> items4;
+    List<OrdersDTO> items4;
     OrdersDAO dao;
     int dayresult;
 
@@ -80,7 +81,7 @@ public class DaySalemana extends AppCompatActivity {
             }
         });
     }
-
+    // 일별 날짜검색 어댑터
     class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
 
         @NonNull
@@ -92,7 +93,9 @@ public class DaySalemana extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull DayViewHolder holder, int position) {
-            SaleDTO items = items4.get(position);
+//            @SaleDTO items = items4.get(position);
+            OrdersDTO items = items4.get(position);
+
             holder.txtViewDate.setText(items.getOrder_date());
             holder.txtViewMenu.setText(items.getMenu_name());
             holder.txtViewAmount.setText(String.valueOf(items.getDay_amount()));
@@ -116,11 +119,13 @@ public class DaySalemana extends AppCompatActivity {
             }
         }
     }
+    // 키보드 자동 내리기
     void hidekeyboard() {
         InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(rv1.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
-    public String numberFormat(String str) { //금액단위 콤마설정
+    // 금액단위 콤마설정
+    public String numberFormat(String str) {
         if (str.length() == 0) {
             return "";
         }

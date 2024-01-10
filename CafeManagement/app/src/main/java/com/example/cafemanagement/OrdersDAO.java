@@ -28,7 +28,7 @@ public class OrdersDAO {
         List<OrdersDTO>items = new ArrayList<>();
         SQLiteDatabase db = null;
         Cursor cursor = null;
-        try { //주문내역 전체리스트
+        try { // 주문내역 전체리스트
             db = dbConn();
 
             String sql="select order_num, order_date, o.menu_id,menu_name,amount, m.price*o.amount \n" +
@@ -144,7 +144,8 @@ public class OrdersDAO {
         return dayresult;
     }
     public List list4(String orderdate2) {
-        ArrayList<SaleDTO> items4 = new ArrayList<>();
+//        @ ArrayList<SaleDTO> items4 = new ArrayList<>();
+        ArrayList<OrdersDTO> items4 = new ArrayList<>();
         SQLiteDatabase db = null;
         Cursor cursor4 = null;
         try { //상품별 일매출
@@ -162,7 +163,8 @@ public class OrdersDAO {
                 int day_sales = cursor4.getInt(3);
                 int month_amount = 0;
                 int month_sales = 0;
-                items4.add(new SaleDTO(order_date,menu_name, day_amount, day_sales, month_amount, month_sales));
+//              @  items4.add(new SaleDTO(order_date,menu_name, day_amount, day_sales, month_amount, month_sales));
+                items4.add(new OrdersDTO(order_date,menu_name,day_amount,day_sales,month_amount,month_sales));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -184,6 +186,7 @@ public class OrdersDAO {
             String monsql="select sum(m.price*o.amount)" +
                     " from orders o,menuList m" +
                     " where m.menu_id=o.menu_id and strftime('%Y-%m', order_date)='"+mondate+"'";
+            // strftime()함수 - 지정된 형식에 따라 datetime값을 형식화하는데 사용
             cursor5 = db.rawQuery(monsql,null);
             while (cursor5.moveToNext()) {
                 monresult = cursor5.getInt(0);
@@ -200,7 +203,8 @@ public class OrdersDAO {
         return monresult;
     }
     public List list6(String orderdate3) {
-        ArrayList<SaleDTO> items6 = new ArrayList<>();
+//       @ ArrayList<SaleDTO> items6 = new ArrayList<>();
+        ArrayList<OrdersDTO> items6 = new ArrayList<>();
         SQLiteDatabase db = null;
         Cursor cursor6 = null;
         try { // 상품별 월매출
@@ -210,6 +214,7 @@ public class OrdersDAO {
                     " where m.menu_id=o.menu_id and strftime('%Y-%m', order_date)='" + orderdate3 + "'" +
                     " group by m.menu_name" +
                     " order by 매출 desc";
+            // substr()함수 - 문자열에서 부분 문자열을 받아올 때 쓰임.
             cursor6 = db.rawQuery(monsalesql,null);
 //            Log.i("test","sql:"+monsalesql);
             while (cursor6.moveToNext()) {
@@ -219,7 +224,8 @@ public class OrdersDAO {
                 int month_sales = cursor6.getInt(3);
                 int day_amount = 0;
                 int day_sales = 0;
-                items6.add(new SaleDTO(order_date,menu_name, day_amount, day_sales, month_amount, month_sales));
+//              @  items6.add(new SaleDTO(order_date,menu_name, day_amount, day_sales, month_amount, month_sales));
+                items6.add(new OrdersDTO(order_date,menu_name,day_amount,day_sales,month_amount,month_sales));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -46,12 +46,14 @@ public class ExcelCustomDialog extends AppCompatActivity {
 
     ProgressDialog pd;
     String path;
-    ArrayList<SaleDTO> items6;
+//  @  ArrayList<SaleDTO> items6;
+    ArrayList<OrdersDTO> items6;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         path = getExternalFilesDir(null).getAbsolutePath(); //외부메모리
+        // storage-emulated-0-Android-data-com.cafemanagement-files
         custom_dialog();
     }
 
@@ -87,6 +89,7 @@ public class ExcelCustomDialog extends AppCompatActivity {
     }
     public void backup() {
         pd = ProgressDialog.show(this,"작업중","자료를 엑셀로 저장하고 있습니다. 잠시만 기다려 주세요.");
+        // 파일 저장될 동안 진행바
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -112,27 +115,31 @@ public class ExcelCustomDialog extends AppCompatActivity {
         try {
             File file = new File(fileName); //java.io.*
             workbook = Workbook.createWorkbook(file);
-            workbook.createSheet("Month_Sales",0); //시트이름,인덱스
+            workbook.createSheet("Month_Sales",0); // 시트이름,인덱스
             sheet = workbook.getSheet(0); //첫번째시트
-            List<SaleDTO> list = MonthSalemana.items6;
+//          @  List<SaleDTO> list = MonthSalemana.items6;
+            List<OrdersDTO> list = MonthSalemana.items6;
 //            Log.i("test", "상품목록:" + items6);
             Label label = null;
-            WritableCellFormat cf = new WritableCellFormat(); //셀의형식
+            WritableCellFormat cf = new WritableCellFormat(); // 셀의형식
             cf.setBorder(Border.ALL, BorderLineStyle.THIN);
 
-            label = new Label(0,0,"날짜",cf); // 열과 행 - Columns and rows
+            label = new Label(0,0,"상품별 매출현황",cf);
+            sheet.addCell(label);
+            label = new Label(0,1,"날짜",cf); // 열과 행 - Columns and rows
             sheet.addCell(label); // 시트에 셀 추가
-            label = new Label(1,0,"상품명",cf);
+            label = new Label(1,1,"상품명",cf);
             sheet.addCell(label);
-            label = new Label(2,0,"수량",cf);
+            label = new Label(2,1,"수량",cf);
             sheet.addCell(label);
-            label = new Label(3,0,"매출",cf);
+            label = new Label(3,1,"매출",cf);
             sheet.addCell(label);
 
 
-            for(int i=0;i< list.size();i++) {
+            for(int i=1;i< list.size();i++) {
 
-                SaleDTO dto = list.get(i);
+//               @ SaleDTO dto = list.get(i);
+                OrdersDTO dto = list.get(i);
                 label = new Label(0,i+1, dto.getOrder_date(),cf);
                 sheet.addCell(label);
                 label = new Label(1,i+1, dto.getMenu_name(),cf);

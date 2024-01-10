@@ -3,6 +3,7 @@ package com.example.cafemanagement;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,32 @@ public class MenuDAO {
         return db;
     }
 
+    //신규메뉴 임시저장 시, 상품명 중복검사 실행ㅅ
+    public String checkName(String name) {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        String result = "";
+
+        try {
+            db = dbConn();
+            String sqlCheck = "select exists (select * from menuList where menu_name ='" + name + "')";
+            //기존에 동일한 정보(분류코드)로 등록된 데이터가 있는지 확인 → 1(true) or 0(false)로 반환
+            cursor = db.rawQuery(sqlCheck, null);
+            cursor.moveToFirst();
+
+            if (cursor.getInt(0) == 1) {
+                result = "isUsed";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+            if (db != null) db.close();
+        }
+        return result;
+    }
+
+
     //신규메뉴 등록 쿼리(menuList에 insert)
     public void insertDB(MenuDTO dto) {
         SQLiteDatabase db = null;
@@ -57,19 +84,24 @@ public class MenuDAO {
     }
 
     //상품명, 판매가, 운영여부만 update 쿼리로 수정가능하도록 설정
-    public void update(MenuDTO dto) {
+    public String update(MenuDTO dto) {
         SQLiteDatabase db = null;
+        String result = "";
         try {
             db = dbConn();
             String sql = String.format("update menuList set " +
                     "menu_name='%s', price=%d, run=%d " +
                     "where menu_id='%s'", dto.getMenuName(), dto.getPrice(), dto.getRun(), dto.getMenuId());
             db.execSQL(sql);
+            result = "succeed";
+            //SQLiteConstraintException: UNIQUE constraint failed
+            //기존 등록된 다른 상품명과 동일하게 수정하는 경우 발생하는 에러 처리를 위해 코드 추가
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (db != null) db.close();
         }
+        return result;
     }
 
     //menuEdit 액티비티에서 상품코드 → delete 실행
@@ -152,7 +184,7 @@ public class MenuDAO {
             cursor.moveToFirst();
 
             if (cursor.getInt(0) == 1) {
-                sql = "Select * from menuView where category='"+keyword+"' order by menu_id";
+                sql = "Select * from menuView where category='" + keyword + "' order by menu_id";
                 //상품분류로 검색
             } else {
                 sql = "Select * from menuView where menu_name like '%" + keyword + "%' order by category, menu_id";

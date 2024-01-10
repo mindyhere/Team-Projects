@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,15 +66,19 @@ public class OrdersActivity extends AppCompatActivity {
         dao = new OrdersDAO(this);
 //        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rv.getContext(), new LinearLayoutManager(this).getOrientation());
 //        rv.addItemDecoration(dividerItemDecoration); //경계선설정
+
+
+        //커피콩 아이콘
         iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items = dao.list();
                 AllAdapter = new AllAdapter();
-                rv.setAdapter(AllAdapter);
+                rv.setAdapter(AllAdapter); //리사이클러뷰에 전체어댑터
             }
         });
 
+        //주문번호 검색버튼
         btnnum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,14 +92,15 @@ public class OrdersActivity extends AppCompatActivity {
                         Toast.makeText(OrdersActivity.this, "없는 주문번호입니다.", Toast.LENGTH_SHORT).show();
                     } else {
                         OrderAdapter = new OrderAdapter();
-                        rv.setAdapter(OrderAdapter);
-                        txtnumSearch.setText(null);
+                        rv.setAdapter(OrderAdapter); // 리사이클러뷰에 주문번호어댑터
+                        txtnumSearch.setText(null); // 검색 후 검색칸 초기화
                     }
                 }
                 hidekeyboard();
             }
         });
 
+        //날짜검색버튼
         btndate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,8 +115,8 @@ public class OrdersActivity extends AppCompatActivity {
                         Toast.makeText(OrdersActivity.this, "해당날짜의 주문내역은 없습니다.", Toast.LENGTH_SHORT).show();
                     } else {
                         DateAdapter = new DateAdapter();
-                        rv.setAdapter(DateAdapter);
-                        txtdateSearch.setText(null);
+                        rv.setAdapter(DateAdapter); // 리사이클러뷰에 날짜어댑터
+                        txtdateSearch.setText(null); // 검색 후 검색칸 초기화
                     }
                 } catch (ParseException e) {
                     Toast.makeText(OrdersActivity.this, "형식에 맞지 않습니다.", Toast.LENGTH_SHORT).show();
@@ -128,7 +134,7 @@ public class OrdersActivity extends AppCompatActivity {
         AllAdapter = new AllAdapter(); //아답터 생성
         rv.setAdapter(AllAdapter); //리사이클러뷰에 아답터 연결
     }
-
+    // 전체리스트 어댑터
     class AllAdapter extends RecyclerView.Adapter<AllAdapter.ViewHolder> {
 
         @NonNull
@@ -145,7 +151,7 @@ public class OrdersActivity extends AppCompatActivity {
             holder.txtOrdernum.setText(String.valueOf(dto.getOrder_num())+"번");
             holder.txtMenuno.setText(dto.getMenu_name());
             holder.txtAmount.setText(String.valueOf(dto.getAmount())+"개");
-            holder.txtTotal.setText(String.valueOf(dto.getTotal_price())+"원");
+            holder.txtTotal.setText(numberFormat(String.valueOf(dto.getTotal_price()))+"원");
         }
 
         @Override
@@ -169,6 +175,7 @@ public class OrdersActivity extends AppCompatActivity {
             }
         }
     }
+    //주문번호검색 어댑터
     class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
         @NonNull
@@ -206,7 +213,7 @@ public class OrdersActivity extends AppCompatActivity {
             }
         }
     }
-
+    // 날짜검색 어댑터
     class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder> {
 
         @NonNull
@@ -247,8 +254,18 @@ public class OrdersActivity extends AppCompatActivity {
             }
         }
     }
+    // 키보드 자동 내리기
     void hidekeyboard() {
         InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(rv.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+    // 금액단위 콤마설정
+    public String numberFormat(String str) {
+        if (str.length() == 0) {
+            return "";
+        }
+        long value = Long.parseLong(str);
+        DecimalFormat format = new DecimalFormat("###,###");
+        return format.format(value);
     }
 }
