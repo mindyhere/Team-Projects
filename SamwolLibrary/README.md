@@ -169,9 +169,9 @@ end;
 <br/>
 
 #### __🖥 그 외 구현기능__
-🔗 [sitemap](SamwolLibrary/gif/etc-sitemap.gif)
-🔗 [alert & confirm](SamwolLibrary/gif/etc-customalert.gif)
-🔗 [header & footer](SamwolLibrary/gif/etc-menu.gif)
+🔗 [sitemap](https://github.com/mindyhere/Team-Projects/blob/master/SamwolLibrary/gif/etc-sitemap.gif)
+🔗 [alert & confirm](https://github.com/mindyhere/Team-Projects/blob/master/SamwolLibrary/gif/etc-customalert.gif)
+🔗 [header & footer](https://github.com/mindyhere/Team-Projects/blob/master/SamwolLibrary/gif/etc-menu.gif)
 <br/>
 <br/>
 <br/>
