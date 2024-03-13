@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rebook">
+	
+	<select id="list" resultType="admin.l_book.ReBookDTO">
+	
+	select * 
+      from (
+          select rownum as rn, A.*
+          from (
+            select * from rbook
+            order by b_name, r_reservation
+          ) A
+      )
+      where rn between #{start} and #{end}
+	
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) 
+		from rbook
+	</select>
+	
+	<select id="search_list" resultType="admin.l_book.ReBookDTO">
+	
+		select *
+		from (
+			select rownum as rn, A.*
+			from (
+				select * from rbook
+					where ${search_option} like '%' || #{search} || '%'
+					order by r_num desc
+				) A
+			)
+		where rn between #{start} and #{end}
+		
+	</select>
+	
+	
+		
+</mapper>

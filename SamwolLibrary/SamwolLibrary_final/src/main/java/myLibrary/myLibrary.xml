@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myLibrary">
+	<!-- 나의 서재 -->
+	<select id="myLibrary_list" resultType="myLibrary.MyLibraryDTO">
+		SELECT
+		m_no,
+		m_id,
+		m_name,
+		m_tel,
+		m_email,
+		m_img,
+		to_char(m_year, 'yyyy-MM-dd') m_year,
+		l_bookid,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		lo_book
+		WHERE
+		l_memno = (
+		SELECT
+		m_no
+		FROM
+		sl_member
+		WHERE
+		m_id = #{m_id}
+		)
+		AND l_return_yn = 'N'
+		) lo_book_cnt,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		re_book
+		WHERE
+		r_memno = (
+		SELECT
+		m_no
+		FROM
+		sl_member
+		WHERE
+		m_id = #{m_id}
+		AND <![CDATA[ r_reservation >= 0 ]]>
+		)
+		)
+		re_book_cnt,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		lo_book
+		WHERE
+		l_memno = (
+		SELECT
+		m_no
+		FROM
+		sl_member
+		WHERE
+		m_id = #{m_id}
+		)
+		) total_cnt
+		FROM
+		sl_member,
+		lo_book,
+		re_book
+		WHERE
+		m_id = #{m_id}
+		AND ROWNUM = 1
+	</select>
+
+	<!-- 나의 대출 현황 -->
+	<select id="myLoanBook" resultType="myLibrary.MyLibraryDTO">
+		SELECT
+		l_memno,
+		l_bookid,
+		b_name,
+		b_author,
+		b_pub,
+		b_year,
+		b_category,
+		b_isbn,
+		b_url,
+		to_char(l_lodate,
+		'yyyy-MM-dd') l_lodate,
+		to_char(l_retdate,
+		'yyyy-MM-dd') l_retdate,
+		l_return_yn,
+		l_renew_yn,
+		( SELECT
+		COUNT(*)
+		FROM
+		sl_member, lo_book
+		WHERE
+		m_no = l_memno
+		AND l_memno = #{l_memno}
+		AND
+		l_return_yn = 'N'
+		)
+		lo_book_cnt
+		FROM sl_book, lo_book
+		WHERE l_memno =
+		#{l_memno}
+		AND b_id =
+		l_bookid
+		AND
+		l_return_yn = 'N'
+	</select>
+
+	<!-- 나의 대출 이력 -->
+	<select id="myHistory" resultType="myLibrary.MyLibraryDTO">
+		SELECT
+		l_bookid,
+		b_name,
+		b_author,
+		b_pub,
+		b_year,
+		b_category,
+		b_isbn,
+		b_url,
+		to_char(l_lodate,
+		'yyyy-MM-dd') l_lodate,
+		to_char(l_retdate, 'yyyy-MM-dd') l_retdate,
+		to_char(l_complete, 'yyyy-MM-dd') l_complete,
+		l_return_yn,
+		l_renew_yn,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		sl_member, lo_book
+		WHERE m_no = l_memno
+		AND l_memno =
+		#{l_memno}
+		) lo_book_cnt
+		FROM sl_book, lo_book
+		WHERE l_memno = #{l_memno}
+		AND b_id = l_bookid
+	</select>
+
+	<!-- 도서 예약여부 확인 -->
+	<select id="checkReservation" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		re_book
+		WHERE r_bookid = #{r_bookid}
+	</select>
+
+	<!-- 동일도서 연장여부 확인 -->
+	<select id="checkRenewYn" resultType="String">
+		SELECT
+		l_renew_yn
+		FROM
+		lo_book
+		WHERE
+		l_memno =#{l_memno}
+		AND l_return_yn =
+		'N'
+		AND l_bookid = #{l_bookid}
+	</select>
+
+	<!-- 연장신청 -->
+	<update id="updateReturn">
+		UPDATE lo_book
+		SET l_retdate = l_retdate + 7,
+		l_renew_yn = 'Y'
+		WHERE
+		l_memno = #{l_memno}
+		AND l_bookid = #{l_bookid}
+	</update>
+
+	<!-- 카테고리별 통계 -->
+	<select id="cateChart" resultType="map">
+		SELECT
+		b_category as category,
+		COUNT(b_category) AS total_cnt
+		FROM
+		lo_book a,
+		sl_book b
+		WHERE
+		l_memno =
+		#{l_memno}
+		AND l_bookid = b_id
+		GROUP BY
+		b_category
+	</select>
+
+	<!-- 반기별 통계 -->
+	<select id="monthChart" resultType="map">
+		SELECT
+		to_char(l_lodate,
+		'yyyy.MM') AS category,
+		COUNT(to_char(l_lodate, 'yyyy.MM')) as
+		TOTAL_CNT
+		FROM
+		lo_book
+		WHERE
+		l_memno = #{l_memno}
+		AND l_lodate >=
+		ADD_MONTHS(SYSDATE, -6)
+		GROUP BY
+		to_char(l_lodate, 'yyyy.MM')
+		ORDER BY
+		to_char(l_lodate, 'yyyy.MM')
+	</select>
+
+	<!-- 연도별 통계 -->
+	<select id="yearChart" resultType="map">
+		SELECT
+		EXTRACT(YEAR FROM
+		TO_DATE(l_lodate)) as category,
+		COUNT(EXTRACT(YEAR FROM
+		TO_DATE(l_lodate))) as TOTAL_CNT
+		FROM
+		lo_book
+		WHERE
+		l_memno = #{l_memno}
+		GROUP BY
+		EXTRACT(YEAR FROM TO_DATE(l_lodate))
+		ORDER BY category
+	</select>
+</mapper>

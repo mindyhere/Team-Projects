@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<select id="list_memberInfo" resultType="member.MemberDTO">
+		<!-- 회원정보 조회 -->
+		SELECT * FROM sl_member
+	</select>
+
+	<!-- 개인별 회원정보 조회 -->
+	<select id="detail_member" resultType="member.MemberDTO">
+		SELECT
+		m_no,
+		m_id,
+		m_passwd,
+		m_name,
+		m_tel,
+		m_zip_no,
+		m_address,
+		m_detail_address,
+		m_email,
+		to_char(m_birth_date, 'yyyy-MM-dd') m_birth_date,
+		m_img,
+		to_char(m_year, 'yyyy-MM-dd') m_year,
+		m_loan
+		FROM
+		sl_member
+		WHERE m_id = 	#{m_id}
+	</select>
+
+	<!-- 회원정보 수정 -->
+	<update id="edit_memberInfo">
+		UPDATE sl_member SET
+		m_passwd = #{m_passwd},
+		m_tel = #{m_tel},
+		m_email = #{m_email},
+		m_zip_no =
+		#{m_zip_no},
+		m_address = #{m_address},
+		m_detail_address =
+		#{m_detail_address},
+		m_img = #{m_img}
+		WHERE m_id = #{m_id}
+	</update>
+
+
+	<!-- 관리자회원분류검색리스트 -->
+	<select id="ad_search_list" resultType="member.MemberDTO">
+
+		select *
+		from (
+		select rownum as rn, A.*
+		from (
+		select m_no,m_name,
+		to_char(m_birth_date, 'yyyy-mm-dd') m_birth_date,
+		m_id,
+		m_tel,
+		to_char(m_year, 'yyyy-mm-dd') m_year
+		from sl_member
+		where ${search_option} like '%' || #{search} || '%'
+		order by m_no
+		) A
+		)
+		where rn between #{start} and #{end}
+	</select>
+
+	<!-- 관리자회원검색 개수 -->
+	<select id="ad_search_count" resultType="int">
+		select count(*) from
+		sl_member
+		where ${search_option} like '%' || #{search} || '%'
+
+	</select>
+
+	<!-- 관리자회원상세 -->
+	<select id="ad_detail" resultType="member.MemberDTO">
+		select m_no, m_name, m_id,
+		to_char(m_birth_date, 'yyyy-mm-dd') m_birth_date, m_img,
+		m_tel,
+		m_email,
+		m_zip_no,
+		m_address,
+		m_detail_address, m_img,to_char(m_year,
+		'yyyy-mm-dd') m_year
+		from sl_member
+		where m_no=#{m_no}
+	</select>
+
+	<!-- 관리자회원목록 -->
+	<select id="ad_p_list" resultType="member.MemberDTO">
+		select *
+		from(
+		select rownum as rn, A.*
+		from(
+		select m_no, m_name,
+		to_char(m_birth_date, 'yyyy-mm-dd') m_birth_date,
+		m_id,
+		m_tel,
+		to_char(m_year, 'yyyy-mm-dd') m_year
+		from sl_member
+		order by m_no
+		) A
+		)
+		where rn between #{start} and #{end}
+
+	</select>
+
+	<!-- 관리자회원수(페이지나누기) -->
+	<select id="ad_p_count" resultType="int">
+		select count(*) from
+		sl_member
+	</select>
+
+	<!--회원가입 -->
+	<insert id="insert_join">
+		insert into sl_member (m_no,m_name,m_id,m_passwd,
+		m_tel,
+		m_address,m_email,m_birth_date,m_zip_no,m_detail_address,m_img)
+		values (
+		sl_member_seq.nextval,
+		#{m_name},
+		#{m_id},
+		#{m_passwd},
+		#{m_tel},
+		#{m_address},
+		#{m_email},
+		#{m_birth_date},
+		#{m_zip_no},
+		#{m_detail_address},
+		#{m_img}
+		)
+	</insert>
+
+	<select id="id_check" resultType="int">
+		SELECT count(*) FROM sl_member
+		WHERE m_id = #{m_id}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="book">
+<select id="list_search" resultType="admin.book.BookDTO">
+	select *
+	from (
+		select rownum as rn, A.*
+		from (
+			select b_id, b_name, b_author, b_pub, b_year, b_category 
+			from sl_book 
+			where ${search_option} like '%' || #{keyword} || '%' 
+			order by b_id
+		) A
+	) where rn between #{start} and #{end}
+</select>
+<select id="select_cg" resultType="admin.book.BookDTO">
+	select distinct b_category from sl_book
+</select>
+<insert id="insert">
+	insert into sl_book (b_id,b_name,b_author,b_pub,b_year,b_category,b_isbn,b_amount,b_url,b_description)
+	values (book_seq.nextval, #{b_name}, #{b_author}, #{b_pub}, #{b_year}, #{b_category}, #{b_isbn}, #{b_amount}, #{b_url}, #{b_description})
+</insert>
+<select id="list" resultType="admin.book.BookDTO">
+	select *
+	from (
+		select rownum as rn, A.*
+		from (
+			select b_id, b_name, b_author, b_pub, b_year, b_category 
+			from sl_book 
+			order by b_id
+		) A
+	) where rn between #{start} and #{end}
+</select>
+<select id="edit" resultType="admin.book.BookDTO">
+	select * from sl_book where b_id=#{b_id}
+</select>
+<select id="update">
+update sl_book set b_name=#{b_name}, b_author=#{b_author}, b_pub=#{b_pub}, b_year=#{b_year}, b_amount=#{b_amount}, b_description=#{b_description},
+b_url=#{b_url}, b_category=#{b_category}
+where b_id=#{b_id}
+</select>
+<delete id="delete">
+	 delete from sl_book where b_id=#{b_id}
+</delete>
+<select id="count" resultType="int">
+	select count(*) from sl_book
+</select>
+<select id="search_count" resultType="int">
+	select count(*) from sl_book
+	where ${search_option} like '%' || #{keyword} || '%' 
+</select>
+<select id="url_cate" resultType="String">
+	select b_url from sl_book where b_id=#{b_id}
+</select>
+</mapper>

@@ -1,0 +1,450 @@
+@charset "UTF-8";
+
+body {
+	background: #F8EDEB !important;
+}
+
+.container {
+	margin-top: 50px;
+}
+
+.card-style {
+	background: #fff;
+	box-sizing: border-box;
+	padding: 25px 30px;
+	position: relative;
+	box-shadow: 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px
+		0px rgba(145, 158, 171, 0.2);
+	border-radius: 7px;
+}
+
+.btnLoginBottom>a {
+	text-decoration-line: none;
+	color: black;
+	font-weight: 600;
+}
+
+ul.tabs {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+ul.tabs li {
+	background: none;
+	color: #222;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+
+ul.tabs li.current {
+	background: #f1d59838;
+	color: #222;
+	font-weight: bolder;
+}
+
+.input-style-tab {
+	position: relative;
+	margin-bottom: 30px;
+	padding-top: 30px;
+	display: none;
+	border-top: 3px solid #f1d59838;
+}
+
+.input-style-tab.current {
+	display: inherit;
+}
+
+div.col.detail {
+	display: flex;
+	flex-flow: column wrap;
+	align-self: center
+}
+
+div.col.detail>p {
+	align-content: space-evenly;
+}
+
+div.col.detail>p>a {
+	text-decoration: none;
+	color: inherit;
+	font-size: 1.3em;
+}
+
+div.col.detail>p>a:hover {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+div.col.detail>p>span:not(:nth-child(1))::before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 50%;
+	width: 1px;
+	left: -1px;
+	height: 14px;
+	margin-top: -7px;
+	background-color: #c2c2c2;
+}
+
+div.col.detail>p>span {
+	float: left;
+	position: relative;
+	margin-right: 25px;
+	margin-left: -13px;
+	padding-left: 13px;
+}
+
+/* ========== 회원 정보 수정 ============= */
+.profile-image {
+	max-width: 100px;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 20px;
+	position: relative;
+	z-index: 1;
+	height: 100px;
+}
+
+.profile-image img {
+	width: 100%;
+	/* 	border-radius: 50%; */
+}
+
+.profile-image .update-image {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 35px;
+	height: 35px;
+	background: #efefef;
+	border: 2px solid #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	cursor: pointer;
+	z-index: 99;
+}
+
+.profile-image .update-image:hover {
+	opacity: 0.9;
+}
+
+.profile-image .update-image input {
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	z-index: 99;
+}
+
+.profile-image .update-image label {
+	cursor: pointer;
+	z-index: 99;
+}
+
+.input-style-1, .input-style-2 {
+	position: relative;
+	margin-bottom: 30px;
+}
+
+.input-style-1 label, .input-style-2 label, .input-style-tab label {
+	font-size: 16px;
+	font-weight: 500;
+	color: #1A2142;
+	display: block;
+	margin-bottom: 5px;
+}
+
+.input-style-1 input, .input-style-tab input {
+	width: 100%;
+	background: white;
+	border: 1px solid #e5e5e5;
+	border-radius: 4px;
+	padding: 5px;
+	color: #5d657b;
+	resize: none;
+	transition: all 0.3s;
+}
+
+.input-style-2 input {
+	width: 100%;
+	background: rgba(239, 239, 239, 0.5);
+	pointer-events: none;
+	border: 1px solid #e5e5e5;
+	border-radius: 4px;
+	padding: 5px;
+	color: #5d657b;
+	resize: none;
+	transition: all 0.3s;
+}
+/* ========== 도서관 오는 길 ============= */
+.top {
+	padding-bottom: 30px;
+}
+
+.top h4 {
+	position: relative;
+	font-size: 16px;
+	color: #c8cacc;
+	letter-spacing: 0em;
+	font-weight: 500;
+	margin: 0;
+	line-height: 1.6;
+	padding-left: 25px;
+}
+
+.top h4:before {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 5px;
+	height: 83%;
+	background: #04264c;
+	top: 4px;
+	left: 0;
+}
+
+.top h4 b {
+	font-size: 34px;
+	color: #222222;
+	letter-spacing: -0.045em;
+	font-weight: 500;
+}
+
+.top p {
+	font-size: 16px;
+	color: #888888;
+	letter-spacing: -0.045em;
+	font-weight: 300;
+	line-height: 1.6;
+	margin-top: 20px;
+}
+
+.top p span {
+	letter-spacing: 0em;
+	font-weight: 400;
+}
+
+.bot {
+	padding-top: 30px;
+	border-top: 1px solid #efefef;
+}
+
+.bot ul+h5 {
+	margin-top: 30px;
+}
+
+.bot h5 {
+	font-size: 20px;
+	color: #444444;
+	letter-spacing: -0.045em;
+	font-weight: 500;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.bot h5 img {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.bot ul li {
+	margin: 5px 0;
+	font-size: 0;
+	letter-spacing: -4px;
+}
+
+.bot ul li h6 {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	font-size: 16px;
+	color: #666666;
+	letter-spacing: -0.045em;
+	font-weight: 300;
+	margin: 0;
+	padding-right: 10px;
+	box-sizing: border-box;
+}
+
+.bot ul li h6:before {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 1px;
+	height: 20px;
+	background: #efefef;
+	top: 4px;
+	right: 0;
+}
+
+.bot ul li h6 span {
+	display: inline-block;
+	vertical-align: middle;
+	color: #fff;
+	padding: 0 8px;
+	border-radius: 2px;
+	margin-right: 2px;
+}
+
+.bot ul li h6 span.col01 {
+	background: #009944;
+}
+
+.bot ul li h6 span.col02 {
+	background: #009899;
+}
+
+.bot ul li p {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 16px;
+	color: #888888;
+	letter-spacing: -0.045em;
+	font-weight: 300;
+	line-height: 1.4;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
+.bot ul li.w85 p {
+	width: calc(100% - 85px);
+}
+
+.bot ul li.w125 p {
+	width: calc(100% - 125px);
+}
+
+/* ========== table css ========== */
+.tbl {
+	width: 100%;
+	border: 1px solid #f1d59838;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	margin-top: 15px;
+}
+
+.tbl th {
+	padding: 10px;
+	border: 1px solid #dee2e6;
+	background-color: #f1d59838;
+	text-align: center;
+	font-weight: bold;
+}
+
+.tbl td {
+	padding: 10px;
+	border: 1px solid #dee2e6;
+	background-color: #ffffff;
+}
+
+/* ========== Buttons css ========== */
+/* main-btn active-btn-light rounded-full btn-hover */
+#main-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding: 15px 45px;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	border-radius: 30px;
+	cursor: pointer;
+	z-index: 5;
+	transition: all 0.4s ease-in-out;
+	border: 1px solid transparent;
+	overflow: hidden;
+	background: #FEC5BB;
+	color: #000;
+	position: relative;
+	overflow: hidden;
+}
+
+/* ============= typography css ============= */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	color: #1A2142;
+	margin: 0;
+}
+
+h1, .h1 {
+	font-size: 32px;
+	font-weight: 700;
+}
+
+h2, .h2 {
+	font-size: 28px;
+	font-weight: 600;
+}
+
+h3, .h3 {
+	font-size: 24px;
+	font-weight: 500;
+}
+
+h4, .h4 {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+h5, .h5 {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+h6, .h6 {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.text-bold {
+	font-weight: 700;
+}
+
+.text-semi-bold {
+	font-weight: 600;
+}
+
+.text-medium {
+	font-weight: 500;
+}
+
+.text-regular {
+	font-weight: 400;
+}
+
+.text-light {
+	font-weight: 300;
+}
+
+.text-sm {
+	font-size: 15px;
+	line-height: 22px;
+}
+
+.text-xs {
+	font-size: 12px;
+}
+
+.swal-button {
+	padding: 7px 19px;
+	border-radius: 2px;
+	background-color: #FEC5BB !important;
+	font-size: 12px;
+	border: 1px solid #FEC5BB !important;
+	box-shadow: none !important;
+}

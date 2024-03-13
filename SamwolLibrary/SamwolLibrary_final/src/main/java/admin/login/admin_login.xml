@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin_login">
+
+		<select id="login" resultType="String">
+		select a_name
+		from sl_admin
+		where a_id = #{a_id} and a_passwd = #{a_passwd}
+		</select>
+
+		<select id="loanChart" resultType="map">
+		select loan_book, to_char(l_lodate, 'mm/dd') l_lodate from chart_loan
+		</select>
+		
+		<!-- 카테고리별 월대출그래프 -->
+		<select id="ct_Chart" resultType="map">
+		select category,(sum(cnt)) as cnt
+		from ct_chart
+		group by category
+		</select>
+</mapper>

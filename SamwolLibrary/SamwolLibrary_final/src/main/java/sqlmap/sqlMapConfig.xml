@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xml 지시어 -->
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 알리아스 설정 -->
+	<typeAliases>
+	</typeAliases>
+	<!-- db연결 참조코드 -->
+	<environments default="">
+		<environment id="">
+			<transactionManager type="JDBC" />
+			<dataSource type="JNDI">
+				<property name="data_source" value="java:comp/env/oraDB" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 실제 sql query -->
+	<mappers>
+		<mapper resource="admin/login/admin_login.xml"/>
+		<mapper resource="admin/book/book.xml" />
+		<mapper resource="admin/l_book/record.xml" />
+		<mapper resource="admin/memo/memo.xml" />
+		<mapper resource="admin/l_book/loanBook.xml" />
+		<mapper resource="admin/l_book/rebook.xml" />
+		<mapper resource="login/login.xml" /> 
+		<mapper resource="member/member.xml" />
+		<mapper resource="checkout/checkout.xml" />
+		<mapper resource="checkout/resbook.xml" />
+		<mapper resource="search/search.xml" />
+		<mapper resource="review/review.xml" />
+		<mapper resource="myLibrary/myLibrary.xml"/>
+		<mapper resource="recommend/recommend.xml" />
+	</mappers>
+</configuration>

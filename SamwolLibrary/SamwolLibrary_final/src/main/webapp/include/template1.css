@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* 메인 섹션 1개 : 페이지레이아웃 잡기 */
+div{
+    border: 1px solid red;	/*테스트용 아웃라인*/
+    box-sizing: border-box;
+    /* content+padding+margin 까지 포함한 %로 나누기 때문에 box-sizing을 border-box로 지정해주기 */
+}
+
+.wrap-all{ /*전체화면을 감싸는 div*/
+    min-width: 540px;
+    min-height: 405px; 
+    padding: 0 5% 0 5%; 
+    margin: auto; 
+}
+
+/* 크게 세 영역 : #header, #content, #footer */
+.wrap-all > div{ 
+    width: 100%; /* .wrap 안에 div */
+}
+
+#header{
+	height: 15%;
+}
+#footer{
+	height: 5%;
+}
+#contents{
+    height: 80%;
+}
+
+/* contents내부의 세분화된 영역들 */
+#contents > div{
+    height: 100%;
+    float: left;
+}
+#section-main{
+	width: 100%;
+    justify-content: center;
+	align-items: center;
+	padding: 0 1% 1% 1%
+}
+.section {
+	width: 100%;
+	padding: 0 0 2em 0;
+}
+
+/* 메뉴바 */
+#title .nav-item {
+  padding-right: 1em;
+}
+#title .nav-link {
+  color: #777777 !important;
+}

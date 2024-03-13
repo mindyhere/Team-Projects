@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loanBook">
+<select id="list" resultType="admin.l_book.LoanDTO">
+select *
+	from (
+		select rownum as rn, A.*
+		from (
+			select * from loan_book
+			order by l_retdate
+		) A
+	) where rn between #{start} and #{end}
+</select>
+
+<select id="list_search" resultType="admin.l_book.LoanDTO">
+	select *
+	from (
+		select rownum as rn, A.*
+		from (
+			select * from loan_book
+			where ${search_option} like '%' || #{keyword} || '%'
+			order by l_retdate
+		) A
+	) where rn between #{start} and #{end}
+</select>
+
+<select id="count" resultType="int">
+	select count(*) from loan_book
+</select>
+
+<select id="search_count" resultType="int">
+	select count(*) from loan_book
+	where ${search_option} like '%' || #{keyword} || '%'  
+</select>
+<select id="re_book" statementType="CALLABLE">
+	<!-- update lo_book set l_return_yn = 'Y' where l_num = #{l_num} -->
+	{call com_book(#{l_num})}
+</select>
+<select id ="re_book_check" statementType="CALLABLE">
+	{call check_loan2(#{l_num})}
+</select>
+<!-- 회원대출현황리스트 -->
+<select id="lo_memlist" resultType="admin.l_book.LoanDTO">
+
+select b_name, b_author, to_char(l_lodate, 'yyyy-mm-dd')l_lodate, to_char(l_retdate, 'yyyy-mm-dd')l_retdate
+from  lo_book l, sl_book b , sl_member m
+where l.l_bookid = b.b_id and l.l_memno = m.m_no
+		and l_return_yn = 'N'
+        and m_no = #{m_no}
+order by l_lodate
+
+</select>
+
+<select id="loan_y" resultType="admin.l_book.LoanDTO">
+
+select (5-count(*)) l_y
+from sl_member m, sl_book b, lo_book l
+where l.l_bookid = b.b_id and l.l_memno = m.m_no
+    and l_return_yn = 'N'
+    and m_no=#{m_no}
+
+</select>
+
+<select id="reser_y" resultType="admin.l_book.LoanDTO">
+
+select (3-count(*)) r_y
+from sl_member m, sl_book b, re_book r
+where r.r_bookid = b.b_id and r.r_memno = m.m_no
+    and <![CDATA[ r.r_reservation >= 0 ]]>
+    and m_no=#{m_no}
+
+</select>
+</mapper>

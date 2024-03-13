@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="record">
+<select id="list" resultType="admin.l_book.RecordDTO">
+select * 
+      from (
+          select rownum as rn, A.*
+          from (
+            select * from lo_all_book
+            order by l_lodate desc
+          ) A
+      )
+      where rn between #{start} and #{end}
+</select>
+
+<select id="list_search" resultType="admin.l_book.RecordDTO">
+	select *
+	from (
+		select rownum as rn, A.*
+		from (
+			select * from lo_all_book
+			where ${search_option} like '%' || #{keyword} || '%'
+		) A
+	) where rn between #{start} and #{end}
+</select>
+
+<select id="count" resultType="int">
+	select count(*) from lo_all_book
+</select>
+
+<select id="search_count" resultType="int">
+	select count(*) from lo_all_book
+	where ${search_option} like '%' || #{keyword} || '%'
+</select>
+
+<select id="email" resultType="String">
+	select m_email from sl_member where m_id = (select m_id from lo_all_book where lo_all_book.l_num=#{l_num})
+</select>
+
+<select id="order" resultType="admin.l_book.RecordDTO">
+	select * 
+      from (
+          select rownum as rn, A.*
+          from (
+            select * from lo_all_book
+            order by decode(l_return_yn, 'N', 1),
+            l_over desc
+          ) A
+      )
+      where rn between #{start} and #{end}
+</select>
+</mapper>

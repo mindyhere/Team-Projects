@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="res_book">
+
+	<!--예약신청 기능 -->
+	<insert id="insert_book">
+		insert into re_book (
+		r_num,
+		r_memno,
+		r_bookid,
+		r_reservation)
+		values (
+		re_book_seq.nextval,
+		(select m_no from sl_member
+		where m_id = #{m_id}),
+		#{r_bookid},
+		( select
+		case when max(r_reservation) <![CDATA[ < 0 then 1 ]]>
+		else max(r_reservation) + 1
+		end as r_reservation
+		from re_book
+		where r_bookid = #{r_bookid}
+		)
+		)
+	</insert>
+
+	<!-- 사용자 예약도서 리스트 -->
+	<select id="myReBook" resultType="admin.l_book.ReBookDTO">
+		SELECT
+		r_memno,
+		b_id,
+		b_name,
+		b_author,
+		b_pub,
+		b_year,
+		b_url,
+		to_char(r_regdate, 'yyyy-mm-dd')r_regdate,
+		r_reservation,
+		( SELECT
+		COUNT(*)
+		FROM
+		sl_member, re_book
+		WHERE
+		m_no =
+		(select m_no from sl_member
+		WHERE m_id = #{r_memno} AND m_no = r_memno)
+		AND <![CDATA[ r_reservation >=0 ]]>
+		)
+		re_book_cnt
+		FROM
+		sl_book,re_book
+		WHERE
+		r_memno = (select m_no from
+		sl_member
+		WHERE m_id = #{r_memno})
+		AND b_id = r_bookid
+		AND <![CDATA[ r_reservation >=0 ]]>
+		ORDER BY r_regdate
+	</select>
+
+	<!-- 예약도서 권수 확인 -->
+	<select id="recheck_book" resultType="int">
+		SELECT count(*)
+		FROM
+		sl_member, re_book
+		WHERE m_no = r_memno
+		AND r_memno =
+		(select m_no from
+		sl_member
+		WHERE m_id = #{m_id})
+		AND <![CDATA[ r_reservation >=0 ]]>
+	</select>
+
+	<!-- 중복예약 확인 -->
+	<select id="rechech_duplicate" resultType="int">
+		SELECT count(*) FROM
+		sl_member, re_book
+		WHERE m_no = r_memno
+		AND r_memno
+		= (SELECT m_no FROM
+		sl_member
+		WHERE m_id = #{m_id})
+		AND R_BOOKID =
+		#{r_bookid}
+		AND <![CDATA[ r_reservation >=0 ]]>
+	</select>
+
+	<!-- 예약취소 -->
+	<delete id="res_delete" statementType="CALLABLE">
+		{call res_cancel(#{m_id}, #{r_bookid})}
+	</delete>
+
+	<!-- 예약 차례로 대출 후 예약목록에서 삭제 -->
+	<delete id="myres_delete">
+		DELETE
+		FROM re_book
+		WHERE r_memno = (select m_no from
+		sl_member where m_id =
+		#{m_id})
+		and r_bookid = #{b_id}
+	</delete>
+
+</mapper>

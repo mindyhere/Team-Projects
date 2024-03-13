@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">
+<!-- 키워드 통합검색 -->
+<select id="totSearch" resultType="admin.book.BookDTO">
+	select *
+	from (
+	  select rownum as rn, A.*
+		from (
+		  select b_id, b_name, b_author, b_pub, b_year, b_url 
+		  from  sl_book 
+		  where 
+			  B_name like '%'|| #{keyword} ||'%' or
+			  B_author like '%'|| #{keyword} ||'%' or
+			  B_pub like '%'|| #{keyword} ||'%' 
+		  order by B_id desc, B_name asc
+		) A
+	)
+	where rn between #{start} and #{end}
+</select>
+
+<!-- 상세검색(도서명, 작가, 출판사) -->
+<select id="detailSearch" resultType="admin.book.BookDTO">
+  select *	
+  from(
+	select rownum as rn, A.*
+	from (
+			select b_id, b_name, b_author, b_pub, b_year, b_url 
+			from  sl_book 
+			<trim prefix="WHERE" prefixOverrides="AND">
+				<if test="b_name!=''"> AND B_name like '%'|| #{b_name} ||'%' </if>
+				<if test="b_author!=''"> AND B_author like '%'|| #{b_author} ||'%' </if>
+				<if test="b_pub!=''"> AND B_pub like '%'|| #{b_pub} ||'%' </if>
+			</trim>
+			order by B_id desc, B_name
+		) A
+  ) 
+  where rn between #{start} and #{end}
+</select>
+
+<!-- 페이지별 목록(페이지나누기) -->
+<select id="pageList" resultType="admin.book.BookDTO">
+	select *
+	from (
+	    select rownum as rn, A.*
+	    from (
+	        select b_id, b_name, b_author, b_pub, b_year, b_url 
+	        from sl_book
+	        order by b_id desc, b_name asc
+	    ) A
+	)
+	where rn between #{start} and #{end}
+</select>
+
+<select id="simpleSearch" resultType="admin.book.BookDTO">
+select b_id, b_name, b_author, b_pub, b_year
+from  sl_book 
+where
+	B_name like '%'|| #{keyword} ||'%' or
+	B_author like '%'|| #{keyword} ||'%' or
+	B_pub like '%'|| #{keyword} ||'%' 
+order by B_id desc, B_name
+</select>
+
+
+<!-- 검색결과 → 레코드 개수 -->
+<select id="resultCount" resultType="int">
+	select count(*) from sl_book
+	<choose>
+		<when test="option == 'all'">
+			where B_name like '%'|| #{keyword} ||'%' or
+				B_author like '%'|| #{keyword} ||'%' or
+				B_pub like '%'|| #{keyword} ||'%' 
+		</when>
+		<when test="option == 'detail'">
+			<trim prefix="WHERE" prefixOverrides="AND">
+				<if test="b_name != '' "> and B_name like '%'|| #{b_name} ||'%' </if>
+				<if test="b_author != '' "> and B_author like '%'|| #{b_author} ||'%' </if>
+				<if test="b_pub != '' "> and B_pub like '%'|| #{b_pub} ||'%' </if>
+			</trim>
+		</when>
+	</choose>
+</select>
+
+
+<!-- 검색결과 → 컬럼별 레코드 개수 -->
+<select id="cntName" resultType="int">
+	select count(*) from sl_book
+	where B_name like '%'|| #{b_name} ||'%'
+</select>
+<select id="cntAuthor" resultType="int">
+	select count(*) from sl_book
+	where B_author like '%'|| #{b_author} ||'%'
+</select>
+<select id="cntPub" resultType="int">
+	select count(*) from sl_book
+	where B_pub like '%'|| #{b_pub} ||'%' 
+</select>
+
+
+</mapper>

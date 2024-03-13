@@ -1,0 +1,43 @@
+@charset "UTF-8";
+/* 메인 섹션 1개(사이드바+메인) : 페이지레이아웃 잡기 */
+div{
+    border: 1px solid red;	/*테스트용 아웃라인*/
+    box-sizing: border-box;
+    /* content+padding+margin까지 포함한 %로 나누기 때문에 box-sizing을 border-box로 지정해주기 */
+}
+.wrap-all{ /*전체화면을 감싸는 div*/
+    min-width: 540px;
+    min-height: 405px; 
+    padding: 0 5% 0 5%; 
+    margin: auto; 
+}
+
+/* 위에서 아래로 지정하는 것이 아닌 부모부터 지정해주어야 함 */
+/* 크게 세 영역 : #header, #content, #footer */
+.wrap-all > div{ 
+/* .wrap 안에 div */
+    width: 100%;
+}
+
+#header{
+	height: 15%;
+}
+#footer{
+	height: 5%;
+}
+#contents{
+    height: 80%;
+}
+
+/* contents내부의 세분화된 영역들 */
+#contents > div{
+    height: 100%;
+    float: left;
+}
+#section-right{
+    width: 10%;
+}
+#section-main{
+    width: 90%;
+    padding-left: 1%;
+}
