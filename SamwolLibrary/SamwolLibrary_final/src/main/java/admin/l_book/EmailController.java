@@ -16,7 +16,7 @@ public class EmailController extends HttpServlet {
 		RecordDAO dao = new RecordDAO();
 		if (url.indexOf("send.do") != -1) {
 			String sender_name = "SY Library";
-			String sender_mail = "hjahee@gmail.com";
+			String sender_mail = "";
 			String receive_mail = request.getParameter("receive_mail");
 			String subject = request.getParameter("subject");
 			String message = request.getParameter("message");
