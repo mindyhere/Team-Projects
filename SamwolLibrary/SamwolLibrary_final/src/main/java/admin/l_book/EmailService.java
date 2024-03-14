@@ -13,8 +13,8 @@ import javax.mail.internet.MimeMessage;
 public class EmailService {
 	public void mailSender(EmailDTO dto) throws Exception {
 		String host = "smtp.gmail.com";
-		String username = "hjahee";// gmailid,@gmail.com은입력하지않음
-		String password = "rfxr uhvg ibaa lvti";// 앱비밀번호
+		String username = "";// gmailid,@gmail.com은입력하지않음
+		String password = "";// 앱비밀번호
 		int port = 587;
 
 		String senderMail = dto.getSenderMail();
