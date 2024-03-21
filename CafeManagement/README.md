@@ -14,12 +14,13 @@
    - [메인 화면](#메인화면)
    - [매출 관리](#매출관리)
    - [재고 관리](#재고관리)
-   - [메뉴 관리](#메뉴관리-)
+   - [메뉴 관리](#메뉴관리-) 🙋🏻‍♀
    - [회원 관리](#회원관리)
 <br/>
     
-[__3. 프로젝트 후기__](#-후기)
+[__3. 프로젝트 후기 및 발표자료__](#-후기)
 <br/>
+🔗 [프레젠테이션 자료 및 시연영상](https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing)
 <br/>
 <br/>
 * * *
@@ -45,7 +46,7 @@ __[목표]__
 
 #### 👥 팀 구성 및 사용기술
 __[팀 구성]__  
-총 5인
+![team](https://github.com/mindyhere/Team-Projects/assets/147589193/a1220534-44a1-4304-8ebb-c7b61e7250d2 "개인별구현기능")
 <br/>
 
 
@@ -93,7 +94,15 @@ __[진행과정]__
 
 #### __메뉴관리 🙋🏻‍♀__
 - 상품(메뉴)조회 및 검색
-- 신규상품 등록 또는 상품정보수정 및 삭제
+  <br/>
+![search1](https://github.com/mindyhere/Team-Projects/blob/master/CafeManagement/gif/search1.gif "search")
+- 신규상품 등록 또는 상품분류 추가/삭제
+  <br/>
+![add1](https://github.com/mindyhere/Team-Projects/blob/master/CafeManagement/gif/add1.gif "add product") &nbsp;&nbsp;
+![edit-category1](https://github.com/mindyhere/Team-Projects/blob/master/CafeManagement/gif/edit-category1.gif "edit-category")
+- 상품 정보수정 및 삭제
+  <br/>
+![edit1](https://github.com/mindyhere/Team-Projects/blob/master/CafeManagement/gif/edit1.gif "edit product")
 - 사용자의 유동적 관리가 가능하고, 프로그램 사용에 직관적이고 간결하게 구성
 <br/>
 
@@ -122,5 +131,3 @@ __[진행과정]__
 - 향후 훈련 과정을 통해 학습하게 될 jsp, Spring 등을 활용하여 웹과 연동할 수 있도록 추가 확장
 - 관리자 계정 등록 기능 및 사용자 화면 구성하여 연결
 <br/>
-
-[프레젠테이션 자료 및 시연영상](https://docs.google.com/presentation/d/1bta7-0WddFHqetQJPtGQ5LRoqR3ZgtGICWrsuUFPvhQ/edit?usp=sharing)
