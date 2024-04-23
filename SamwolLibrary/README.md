@@ -1,5 +1,5 @@
 # 📚 2nd/Semi project - 3월 도서관
-본 프로젝트는 국비지원 훈련과정 중 진행한 두번째 팀프로젝트이며, 학습기록을 위해 업로드함.
+본 프로젝트는 국비지원 훈련과정 중 진행한 두번째 팀프로젝트로, JSP/Servlet 기반 도서관 웹사이트 및 사서 통합관리 시스템입니다.
 <br/>
 <br/>
 <br/>
@@ -33,7 +33,7 @@
 2024.02.08 ~ 2024.03.11 (4주)
 
 - 1주차 : 프로젝트 기획 및 DB 구축 회의, 화면 설계(파트별 레이아웃 및 핵심 기능 설계)
-- 2주차  : 파트별 DB 설계 및 구축, 개인별 화면 및 모델 개발 작업 진행
+- 2주차 : 파트별 DB 설계 및 구축, 개인별 화면 및 모델 개발 작업 진행
 - 3주차 : 1차 기능테스트 및 작업현황 공유. 오류 수정
 - 4주차 : 2차 기능테스트, 사이트 오픈 및 최종시연 프레젠테이션 준비
 <br/>
@@ -62,8 +62,8 @@ __[사용기술 및 개발환경]__
 - OS : Windows11
 - Tools  :  Eclipse, SQL Developer, SVN
 - Front-end  :  HTML/CSS, Javascript
-- Back-end  :  JDK21, OracleDB 23.1.1
-- Library  :  Lombok 1.18.30, MyBatis 3.5.15, Json, Jquery 3.7.1, JSTL, Ajax, Bootstrap 5.3, Sweetalert2, Chart.js 4.4.0, Apache Tomcat 10.1.19\
+- Back-end  :  JDK21, OracleDB 23.1.1, JSP/Servlet
+- Library  :  Lombok 1.18.30, MyBatis 3.5.15, Json, Jquery 3.7.1, JSTL, Ajax, Bootstrap 5.3, Sweetalert2, Chart.js 4.4.0, Apache Tomcat 10.1.19
 <br/>
 <br/>
 <br/>
