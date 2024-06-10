@@ -1,3 +1,6 @@
 [submodule "syLibrary2(3rd project)/syLibrary2"]
 	path = syLibrary2(3rd project)/syLibrary2
 	url = https://github.com/mindyhere/syLibrary2.git
+[submodule "sybnb(final project)/final-project"]
+	path = sybnb(final project)/final-project
+	url = https://github.com/mindyhere/final-project.git
