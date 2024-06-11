@@ -20,7 +20,7 @@
     
 [__3. 프로젝트 후기 및 발표자료__](#-후기)
 <br/>
-🔗 [프레젠테이션 자료]([https://docs.google.com/presentation/d/1EiQ5zPQsIVHS_wUwzLL1DPvhh02L0ezI-vCAWCXQWTE/edit?usp=sharing)
+🔗 [프레젠테이션 자료](https://docs.google.com/presentation/d/1EiQ5zPQsIVHS_wUwzLL1DPvhh02L0ezI-vCAWCXQWTE/edit?usp=sharing)
 <br/>
 <br/>
 <br/>
@@ -29,7 +29,7 @@
 
 ## 📌 프로젝트 개요
 #### 📅 기간
-2024.04.01 ~ 2024.04.19 (4주)
+2024.04.01 ~ 2024.04.19 (3주)
 
 - 1주차 : 개별 담당 영역 스프링 프로젝트로 리팩토링. 1차 기능 점검 후 추가개발 요소, 수정보완사항 등을 바탕으로 회의 진행
 - 2주차 : 에러 수정 및 기능 개선, 추가 기능 개발 작업 진행
