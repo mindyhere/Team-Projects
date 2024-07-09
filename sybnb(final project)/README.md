@@ -19,7 +19,8 @@
     
 [__3. 프로젝트 후기 및 발표자료__](#-후기)
 <br/>
-🔗 [프레젠테이션 자료](https://docs.google.com/presentation/d/17xhSXil2K-h7-_tIEPv6zsKwHZvXYaMbxjTMpMjHYV8/edit?usp=sharing)
+🔗 [프레젠테이션 자료](https://docs.google.com/presentation/d/17xhSXil2K-h7-_tIEPv6zsKwHZvXYaMbxjTMpMjHYV8/edit?usp=sharing)  <br/>
+🔗 [AWS EC2 배포 페이지](http://3.35.97.107) 
 <br/>
 <br/>
 <br/>
